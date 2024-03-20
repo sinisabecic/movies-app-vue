@@ -46,7 +46,6 @@ export default {
   }
 }
 
-/* Transition Effects */
 .slide-fade-enter-active,
 .slide-fade-leave-active {
   transition:
@@ -60,7 +59,6 @@ export default {
   transform: translateX(10px);
 }
 
-/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
   .slide-fade-enter-from,
   .slide-fade-leave-to {
