@@ -16,9 +16,9 @@ export default {
     <ul class="hidden sm:flex sm:ml-6">
       <li>
         <RouterLink
-          to="/movies"
+          to="/"
           class="ml-5 text-sm md:text-base lg:text-lg hover:text-gray-900 dark:hover:text-white transition-colors"
-          >Movies</RouterLink
+          >Home</RouterLink
         >
       </li>
       <li>
