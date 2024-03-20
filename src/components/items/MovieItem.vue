@@ -1,6 +1,6 @@
 <script lang="ts">
 import { computed, PropType } from "vue";
-import { GenreInterface, MovieInterface } from "./types";
+import { GenreInterface, MovieInterface } from "../../types";
 import { useRating } from "../../helpers/Number.ts";
 
 export default {

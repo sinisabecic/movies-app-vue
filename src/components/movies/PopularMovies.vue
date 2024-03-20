@@ -1,8 +1,7 @@
 <script lang="ts">
 import MovieItem from "../items/MovieItem.vue";
-import { computed, onMounted, ref } from "vue";
-import { GenreInterface, MovieInterface } from "../items/types";
-import { fetchFromApi } from "../../services/api";
+import { computed, onMounted } from "vue";
+import { useMovieStore } from "../../store/movie";
 
 export default {
   components: {
@@ -10,32 +9,44 @@ export default {
   },
 
   setup() {
-    const movies = ref<MovieInterface[]>([]);
-    const genres = ref<GenreInterface[]>([]);
+    const movieStore = useMovieStore();
 
-    onMounted(async () => {
-      try {
-        const data = await fetchFromApi("/movie/popular");
-        if (data && data.results) {
-          movies.value = data.results;
-        }
-      } catch (error) {
-        console.error("Failed to fetch movies:", error);
-      }
+    onMounted(() => {
+      movieStore.fetchMovies();
+      movieStore.fetchGenres();
     });
 
-    onMounted(async () => {
-      try {
-        const data = await fetchFromApi("/genre/movie/list");
-        if (data && data.genres) {
-          genres.value = data.genres;
-        }
-      } catch (error) {
-        console.error("Failed to fetch genres:", error);
-      }
-    });
+    // *  Ako zelimo direktni pristup filmovima i zanrovima kroz store
+    const movies = computed(() => movieStore.movies);
+    const genres = computed(() => movieStore.genres);
 
-    return { movies, genres };
+    // * Paginacija
+    // const nextPage = () => {
+    //   if (movieStore.currentPage >= 1) {
+    //     movieStore.fetchMovies(movieStore.currentPage + 1);
+    //   }
+    // };
+    //
+    // const prevPage = () => {
+    //   if (movieStore.currentPage > 1) {
+    //     movieStore.fetchMovies(movieStore.currentPage - 1);
+    //   }
+    // };
+
+    // * Load more funkcija
+    const loadMoreMovies = () => {
+      if (movieStore.currentPage >= 1) {
+        movieStore.fetchMovies();
+      }
+    };
+
+    return {
+      movies,
+      genres,
+      // nextPage,
+      // prevPage,
+      loadMoreMovies,
+    };
   },
 };
 </script>
@@ -56,5 +67,32 @@ export default {
         :genres="genres"
       />
     </div>
+
+    <!-- Show more  -->
+    <div class="flex justify-center mt-4">
+      <button
+        class="px-4 py-2 bg-gray-600 text-white rounded"
+        @click="loadMoreMovies"
+      >
+        Show More
+      </button>
+    </div>
+
+    <!--    <div class="flex justify-center mt-4">-->
+    <!--      <button-->
+    <!--        class="mr-2 px-4 py-2 bg-gray-600 text-white rounded"-->
+    <!--        @click="prevPage"-->
+    <!--        :disabled="currentPage === 1"-->
+    <!--      >-->
+    <!--        Previous-->
+    <!--      </button>-->
+    <!--      <button-->
+    <!--        class="px-4 py-2 bg-gray-600 text-white rounded"-->
+    <!--        @click="nextPage"-->
+    <!--        :disabled="currentPage === 50"-->
+    <!--      >-->
+    <!--        Next-->
+    <!--      </button>-->
+    <!--    </div>-->
   </div>
 </template>

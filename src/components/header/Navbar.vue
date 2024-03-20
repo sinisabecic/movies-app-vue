@@ -21,6 +21,13 @@ export default {
           >Movies</RouterLink
         >
       </li>
+      <li>
+        <RouterLink
+          to="/filter-movies"
+          class="ml-5 text-sm md:text-base lg:text-lg hover:text-gray-900 dark:hover:text-white transition-colors"
+          >Filter Movies</RouterLink
+        >
+      </li>
     </ul>
   </nav>
 </template>

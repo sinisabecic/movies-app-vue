@@ -1,10 +1,10 @@
 <script lang="ts">
 import { ref, watch } from "vue";
-import { fetchFromApi } from "../../services/api";
 import { ArrowPathIcon, MagnifyingGlassIcon } from "@heroicons/vue/24/solid";
-import { MovieInterface } from "../items/types";
+import { MovieInterface } from "../../types";
 import { useDebounce } from "../../hooks/useDebounce";
-import { usePosterPath } from "../../helpers/Image.ts";
+import { usePosterPath } from "../../helpers/Image";
+import { useMovieStore } from "../../store/movie";
 
 export default {
   name: "SearchBar",
@@ -20,37 +20,19 @@ export default {
     const noResultFound = ref<boolean>(false);
     const searchTerm = ref<string>("");
     const debouncedSearchTerm = useDebounce(searchTerm, 600);
+    const movieStore = useMovieStore();
 
-    watch(debouncedSearchTerm, (newTerm) => {
+    watch(debouncedSearchTerm, async (newTerm: string) => {
       if (newTerm && newTerm.trim()) {
-        fetchSearch(newTerm);
+        isLoading.value = true;
+        searchResult.value = await movieStore.searchMovies(newTerm);
+        noResultFound.value = searchResult.value.length === 0;
+        isLoading.value = false;
       } else {
         searchResult.value = [];
         noResultFound.value = false;
       }
     });
-
-    const fetchSearch = async (term: string) => {
-      if (!term.trim()) {
-        searchResult.value = [];
-        isLoading.value = false;
-        return;
-      }
-
-      isLoading.value = true;
-
-      try {
-        const data = await fetchFromApi(`/search/movie?query=${term}`);
-
-        searchResult.value = data?.results || [];
-        noResultFound.value = data?.results.length === 0;
-      } catch (error) {
-        console.error("Failed to fetch movies:", error);
-        noResultFound.value = true;
-      } finally {
-        isLoading.value = false;
-      }
-    };
 
     return {
       searchTerm,
