@@ -11,6 +11,7 @@ export default {
   setup() {
     const movieStore = useMovieStore();
 
+    // *  Punjenje state
     onMounted(() => {
       movieStore.fetchMovies();
       movieStore.fetchGenres();

@@ -1,8 +1,4 @@
-<script lang="ts">
-export default {
-  name: "Navbar",
-};
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <nav class="px-4 py-2 flex items-center justify-between">

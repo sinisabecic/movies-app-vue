@@ -20,7 +20,7 @@ export const useMovieStore = defineStore("movie", {
           `/movie/popular?page=${this.currentPage}`,
         );
         if (data && data.results) {
-          this.movies = [...this.movies, ...data.results]; //? postojeci filmovi iz page=1 prekopiraj i pridododaj im nove iz naredne iteracije
+          this.movies = [...this.movies, ...data.results]; //? postojeci filmovi iz page=1 prekopiraj i pridodaj im nove iz naredne iteracije
           this.currentPage++;
         }
       } catch (error) {
