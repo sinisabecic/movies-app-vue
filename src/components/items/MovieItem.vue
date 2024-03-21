@@ -34,6 +34,7 @@ export default {
       <img
         :src="posterPath"
         class="hover:opacity-75 transition ease-in-out duration-150"
+        :alt="movie?.title"
       />
     </RouterLink>
     <h3>{{ movie?.title }}</h3>

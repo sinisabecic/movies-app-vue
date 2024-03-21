@@ -17,8 +17,7 @@ export default {
 
     const fetchMovie = async (movieID: string) => {
       try {
-        const data = await fetchFromApi(`/movie/${movieID}`);
-        movie.value = data;
+        movie.value = await fetchFromApi(`/movie/${movieID}`);
       } catch (error) {
         console.error("Failed to fetch movies:", error);
       }
