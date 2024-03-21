@@ -21,7 +21,7 @@ export const useMovieStore = defineStore("movie", {
         );
         if (data && data.results) {
           this.movies = [...this.movies, ...data.results]; //? postojeci filmovi iz page=1 prekopiraj i pridododaj im nove iz naredne iteracije
-          this.currentPage += 1;
+          this.currentPage++;
         }
       } catch (error) {
         console.error("Failed to fetch movies:", error);

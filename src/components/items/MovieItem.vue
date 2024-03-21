@@ -2,20 +2,18 @@
 import { computed, PropType } from "vue";
 import { GenreInterface, MovieInterface } from "../../types";
 import { useRating } from "../../helpers/Number.ts";
+import { getPosterPath } from "../../helpers/Image.ts";
 
 export default {
   name: "MovieItem",
-  methods: { useRating },
+  methods: { useRating, getPosterPath },
   props: {
     movie: Object as PropType<MovieInterface>,
     genres: Array as PropType<GenreInterface[]>,
   },
 
   setup(props) {
-    const posterPath = computed(
-      () =>
-        `https://image.tmdb.org/t/p/w300_and_h450_bestv2/${props.movie?.poster_path}`,
-    );
+    const posterPath = computed(() => getPosterPath(props.movie?.poster_path));
 
     const genreName = (movieGenreId: number) => {
       const genre = props.genres?.find((g) => g.id === movieGenreId);
@@ -34,7 +32,7 @@ export default {
   <div>
     <RouterLink :to="`/movie/${movie?.id}`">
       <img
-        :src="posterPath && posterPath"
+        :src="posterPath"
         class="hover:opacity-75 transition ease-in-out duration-150"
       />
     </RouterLink>

@@ -14,7 +14,7 @@ export default {
 </script>
 
 <template>
-  <div class="container mx-auto">
+  <div class="container mx-auto px-4 py-5">
     <PopularMovies />
   </div>
 </template>

@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Movie from "../views/Movie.vue";
-import FilterMovies from "../components/movies/FilterMovies.vue";
+import SearchMovies from "../components/movies/SearchMovies.vue";
 
 const routes = [
   {
@@ -15,9 +15,9 @@ const routes = [
     component: Movie,
   },
   {
-    path: "/filter-movies",
-    name: "filter-movies",
-    component: FilterMovies,
+    path: "/search-movies",
+    name: "search-movies",
+    component: SearchMovies,
   },
   {
     path: "/:pathMatch(.*)*",

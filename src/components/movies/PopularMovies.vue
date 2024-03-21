@@ -16,7 +16,7 @@ export default {
       movieStore.fetchGenres();
     });
 
-    // *  Ako zelimo direktni pristup filmovima i zanrovima kroz store
+    // *  Direktni pristup filmovima i zanrovima kroz store
     const movies = computed(() => movieStore.movies);
     const genres = computed(() => movieStore.genres);
 
@@ -52,13 +52,12 @@ export default {
 </script>
 
 <template>
-  <div class="mx-5">
-    <h2 class="uppercase mt-5 text-yellow-500 text-lg font-semibold">
+  <div class="container mx-auto px-4 py-5">
+    <h2 class="uppercase text-yellow-500 text-lg font-semibold text-center">
       Popular Movies
     </h2>
-
     <div
-      class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-8"
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-5"
     >
       <MovieItem
         v-for="movie in movies"
@@ -67,9 +66,7 @@ export default {
         :genres="genres"
       />
     </div>
-
-    <!-- Show more  -->
-    <div class="flex justify-center mt-4">
+    <div class="flex justify-center">
       <button
         class="px-4 py-2 bg-gray-600 text-white rounded"
         @click="loadMoreMovies"
@@ -77,22 +74,22 @@ export default {
         Show More
       </button>
     </div>
-
-    <!--    <div class="flex justify-center mt-4">-->
-    <!--      <button-->
-    <!--        class="mr-2 px-4 py-2 bg-gray-600 text-white rounded"-->
-    <!--        @click="prevPage"-->
-    <!--        :disabled="currentPage === 1"-->
-    <!--      >-->
-    <!--        Previous-->
-    <!--      </button>-->
-    <!--      <button-->
-    <!--        class="px-4 py-2 bg-gray-600 text-white rounded"-->
-    <!--        @click="nextPage"-->
-    <!--        :disabled="currentPage === 50"-->
-    <!--      >-->
-    <!--        Next-->
-    <!--      </button>-->
-    <!--    </div>-->
   </div>
 </template>
+
+<!--    <div class="flex justify-center mt-4">-->
+<!--      <button-->
+<!--        class="mr-2 px-4 py-2 bg-gray-600 text-white rounded"-->
+<!--        @click="prevPage"-->
+<!--        :disabled="currentPage === 1"-->
+<!--      >-->
+<!--        Previous-->
+<!--      </button>-->
+<!--      <button-->
+<!--        class="px-4 py-2 bg-gray-600 text-white rounded"-->
+<!--        @click="nextPage"-->
+<!--        :disabled="currentPage === 50"-->
+<!--      >-->
+<!--        Next-->
+<!--      </button>-->
+<!--    </div>-->

@@ -1,14 +1,14 @@
 <script lang="ts">
 import { ref, watch } from "vue";
 import { fetchFromApi } from "../services/api";
-import { usePosterPath } from "../helpers/Image";
+import { getPosterPath } from "../helpers/Image";
 import { useRoute } from "vue-router";
-import { MovieInterface } from "../components/items/types.ts";
+import { MovieInterface } from "../types";
 import { PlayIcon } from "@heroicons/vue/24/solid";
 
 export default {
   name: "Movie",
-  methods: { usePosterPath },
+  methods: { getPosterPath },
   components: { PlayIcon },
 
   setup() {
@@ -43,7 +43,7 @@ export default {
       class="container mx-auto flex flex-col md:flex-row items-center md:items-start border-b border-gray-600 pb-2"
     >
       <img
-        :src="usePosterPath(movie?.poster_path)"
+        :src="getPosterPath(movie?.poster_path)"
         alt="Movie Poster"
         class="w-64 h-96 object-cover"
       />
@@ -62,20 +62,6 @@ export default {
         </div>
         <p class="mt-4">{{ movie?.overview }}</p>
         <div class="mt-5">
-          <span class="font-semibold">Featured Cast</span>
-          <div class="flex flex-wrap mt-2">
-            <!-- Assuming cast information is available in movie.cast -->
-            <div
-              v-for="person in movie?.cast"
-              :key="person.id"
-              class="flex flex-col mt-3 mr-5"
-            >
-              <span>{{ person.name }}</span>
-              <span class="text-gray-500">{{ person.role }}</span>
-            </div>
-          </div>
-        </div>
-        <div class="mt-5">
           <a
             :href="movie?.homepage"
             target="_blank"
@@ -89,5 +75,3 @@ export default {
     </div>
   </div>
 </template>
-
-<style scoped></style>

@@ -3,12 +3,12 @@ import { ref, watch } from "vue";
 import { ArrowPathIcon, MagnifyingGlassIcon } from "@heroicons/vue/24/solid";
 import { MovieInterface } from "../../types";
 import { useDebounce } from "../../hooks/useDebounce";
-import { usePosterPath } from "../../helpers/Image";
+import { getPosterPath } from "../../helpers/Image";
 import { useMovieStore } from "../../store/movie";
 
 export default {
   name: "SearchBar",
-  methods: { usePosterPath },
+  methods: { getPosterPath },
   components: {
     MagnifyingGlassIcon,
     ArrowPathIcon,
@@ -72,7 +72,7 @@ export default {
           v-for="(movie, i) in searchResult"
           :to="`movie/${movie?.id}`"
         >
-          <img :src="usePosterPath(movie?.poster_path)" alt="" class="w-10" />
+          <img :src="getPosterPath(movie?.poster_path)" alt="" class="w-10" />
           <span class="ml-3">{{ movie?.title }}</span>
         </RouterLink>
       </ul>
